@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/main.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="header">
+          <div class="headLeft">
+              <div class="headLeft_container">
+                  <div class="logo-container">
+                      <a href="/"><img src="/assets/logo/toplogo.svg"></a>
+                  </div>
+                  <div class="headSearch-container">
+                      <input type="search" placeholder="SEARCH">
+                  </div>
+              </div>
+          </div>
+          <div class="headRight">
+              <div class="headRight_container">
+                  <div>EXPLORE</div>
+                  <div>CREATE</div>
+                  <div>Auction</div>
+                  <div class="mypage-container">
+                      <a>
+                          <img src="/assets/icons/Emoji/happy,smile,happy face,smiley,emoji,smile dizzy,.svg">
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>
+  <main>
+    <div class="main">
+        <div class="profile">
+          <div class="wrap-profile">
+            {% if user and user.id %}
+              <div class="user-name">안녕하세요 {{user.nick}}님</div>
+              <div class="user-money">보유 자산: {{user.money}}원</div>
+              <input type="hidden" id="my-id" value="user.id">
+              <div class="btns">
+                <a href="/good" id="register" class="register">상품 등록</a>
+                <a href="/list" id="list" class="list">낙찰 내역</a>
+                <a href="/auth/logout" id="logout" class="logout">LOGOUT</a>
+              </div>
+            {% else %}
+              <form action="/auth/login" id="login-form" method="post">
+                <div class="input-group">
+                  <label for="email">이메일</label>
+                  <br>
+                  <input type="email" id="email" name="email" required autofocus>
+                  <br>
+                  <label for="password">비밀번호</label>
+                  <br>
+                  <input type="password" id="password" name="password" required>
+                </div>
+                <a href="/join" id="join" class="btn">SIGNUP</a>
+                <button id="login" class="btn" type="submit">LOGIN</button>
+              </form>
+            {% endif %}
+            {% block good %}
+            {% endblock %}
+          </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+      <script>
+        window.onload = () => {
+          if (new URL(location.href).searchParams.get('loginError')) {
+            alert(new URL(location.href).searchParams.get('loginError'));
+          }
+        };
+      </script>
+    </div>
+  </main>
+      <footer>
+        <div class="footer">
+                  <div class="footerLeft">
+                      <div class="footerLeft_container">
+                          <div class="vault">
+                              <p>VAULT
+                              <br>THE KLAYTN NETWORK'S FIRST AND LARGEST
+                              <br>DIGITAL MARKETPLACE FOR CRYPTO COLLECTIBLES
+                              <br>AND NON-FUNGIBLE TOKENS (NFTs).
+                              <br>BUY, SELL, AND DISCOVER EXCLUSIVE DIGITAL ITEMS.</p>
+                          </div>
+                          <div class="suggestions">
+                              <p>SUGGESTIONS
+                              <br>DISCORD COMMUNITY
+                              <br>BLOG
+                              <br>DOCS
+                              <br>NEWSLETTER
+                              </p>
+                          </div>
+                          <div class="resources">
+                              <p>resources
+                              <br>HELP CENTER
+                              <br>PLATFORM STATUS
+                              <br>PARTNERS
+                              <br>GAS-FREE MARKETPLACE
+                              </p>
+                          </div>
+                          <div class="company">
+                              <p>COMPANY
+                              <br>ABOUT
+                              <br>CAREERS
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="footerRight">
+                      <div class="footerRight_container">
+                          <div class="empty_space"></div>
+                          <div class="join_community">
+                              <div id="join_p">Join THE COMMUNITY</div>
+                              <div id="join_i">
+                                  <div><img src="/assets/icons/Twitter - Negative.svg"></div>
+                                  <div><img src="/assets/icons/Discord - Negative.svg"></div>
+                                  <div><img src="/assets/icons/Instagram - Negative.svg"></div>
+                                  <div><img src="/assets/icons/Telegram - Negative.svg"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+        </div>
+    </footer>
+  </body>
+</html>
